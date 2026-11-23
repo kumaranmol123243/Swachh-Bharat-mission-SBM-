@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Swachh Bharat Mission | Clean India Challenge</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #effaf2;
+    color: #183b2b;
+}
+
+header {
+    background: linear-gradient(135deg, #087c46, #12a66a);
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+header h1 {
+    font-size: 27px;
+}
+
+header p {
+    margin-top: 10px;
+}
+
+.container {
+    max-width: 550px;
+    margin: auto;
+    padding: 18px;
+}
+
+.card {
+    background: white;
+    padding: 24px;
+    margin: 18px 0;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 5px 18px #00000012;
+}
+
+h2 {
+    color: #087c46;
+    margin-bottom: 15px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+.emoji {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+button {
+    background: #087c46;
+    color: white;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #055b34;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    background: #e6f6eb;
+    color: #183b2b;
+    margin: 10px 0;
+}
+
+.option:hover {
+    background: #c6ecd3;
+}
+
+#game, #result, #certificate {
+    display: none;
+}
+
+.points {
+    font-size: 38px;
+    color: #e49a00;
+    font-weight: bold;
+    margin: 12px;
+}
+
+.badge {
+    font-size: 55px;
+    margin: 15px;
+}
+
+.progress {
+    background: #ddd;
+    height: 12px;
+    border-radius: 20px;
+    margin-top: 15px;
+}
+
+.bar {
+    background: #16a05d;
+    height: 12px;
+    border-radius: 20px;
+    width: 0%;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+footer {
+    background: #087c46;
+    color: white;
+    text-align: center;
+    padding: 25px 10px;
+    margin-top: 25px;
+}
+
+.certificate-box {
+    border: 3px solid #d6a52a;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #certificate, #certificate * {
+        visibility: visible;
+    }
+
+    #certificate {
+        display: block !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    #certificate button,
+    #username {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🇮🇳 Swachh Bharat Mission</h1>
+    <p>My City, My Responsibility!</p>
+</header>
+
+<div class="container">
+
+    <!-- WELCOME PAGE -->
+
+    <section class="card" id="welcome">
+
+        <div class="emoji">🌍</div>
+
+        <h2>Welcome, Cleanliness Champion!</h2>
+
+        <p>
+            Small actions create a big difference.
+            Use dustbins, separate your waste and
+            help make India clean and green.
+        </p>
+
+        <button onclick="startGame()">
+            Start Your Challenge 🚀
+        </button>
+
+    </section>
+
+
+    <!-- GAME SECTION -->
+
+    <section class="card" id="game">
+
+        <h2>♻️ Waste Sorting Challenge</h2>
+
+        <p>
+            Select the correct category for the waste.
+        </p>
+
+        <h3 id="question" style="margin:25px 0;">
+            Plastic Bottle 🧴
+        </h3>
+
+        <div id="options"></div>
+
+        <p id="feedback"></p>
+
+        <p style="margin-top:15px;">
+            Question: <span id="number">1</span>/5
+        </p>
+
+    </section>
+
+
+    <!-- RESULT SECTION -->
+
+    <section class="card" id="result">
+
+        <div class="emoji">🎉</div>
+
+        <h2>Challenge Completed!</h2>
+
+        <p>Your earned points:</p>
+
+        <div class="points" id="score">0</div>
+
+        <h3 id="badgeText"></h3>
+
+        <div class="badge" id="badgeIcon"></div>
+
+        <div class="progress">
+            <div class="bar" id="bar"></div>
+        </div>
+
+        <p id="progressText"></p>
+
+        <button onclick="showCertificate()">
+            Get My Certificate 🏆
+        </button>
+
+    </section>
+
+
+    <!-- CERTIFICATE SECTION -->
+
+    <section class="card" id="certificate">
+
+        <div class="certificate-box">
+
+            <h2>🏆 Certificate of Appreciation</h2>
+
+            <p>
+                This certificate is proudly awarded to
+            </p>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter your name"
+                maxlength="40"
+            >
+
+            <h2 id="certificateName" style="margin:20px 0;">
+                Cleanliness Champion
+            </h2>
+
+            <p>
+                For participating in the Swachh Bharat
+                Cleanliness Challenge and showing
+                commitment towards a cleaner India.
+            </p>
+
+            <div class="emoji">🏅🇮🇳</div>
+
+            <h3>My City, My Responsibility!</h3>
+
+            <p>Keep India Clean and Green.</p>
+
+        </div>
+
+        <button onclick="makeCertificate()">
+            Generate Certificate
+        </button>
+
+        <button onclick="window.print()">
+            Print / Save Certificate
+        </button>
+
+    </section>
+
+
+    <!-- CLEANLINESS PLEDGE -->
+
+    <section class="card">
+
+        <div class="emoji">💚</div>
+
+        <h2>Take the Cleanliness Pledge</h2>
+
+        <p>
+            I promise to use dustbins, avoid littering,
+            separate waste and keep my surroundings clean.
+        </p>
+
+        <button onclick="pledge()">
+            I Take This Pledge 🙌
+        </button>
+
+        <p id="pledgeMessage"></p>
+
+    </section>
+
+
+    <!-- POINTS INFORMATION -->
+
+    <section class="card">
+
+        <h2>🏅 Achievement Levels</h2>
+
+        <p>🥉 Bronze Champion: 0–10 Points</p>
+        <p>🥈 Silver Champion: 20–30 Points</p>
+        <p>🥇 Gold Champion: 40–50 Points</p>
+
+        <p style="margin-top:15px;">
+            Every small action makes a big difference!
+        </p>
+
+    </section>
+
+</div>
+
+
+<footer>
+
+    <h3>Swachh Bharat, Swasth Bharat 🇮🇳</h3>
+
+    <p>
+        Thank you for keeping our environment clean!
+    </p>
+
+    <p style="margin-top:10px;">
+        Be Responsible. Be Clean. Be a Champion.
+    </p>
+
+</footer>
+
+
+<script>
+
+// WASTE SORTING QUESTIONS
+
+const questions = [
+
+    {
+        item: "Plastic Bottle 🧴",
+        options: ["Wet Waste", "Dry Waste"],
+        answer: "Dry Waste"
+    },
+
+    {
+        item: "Vegetable Peels 🥬",
+        options: ["Wet Waste", "Dry Waste"],
+        answer: "Wet Waste"
+    },
+
+    {
+        item: "Old Newspaper 📰",
+        options: ["Wet Waste", "Dry Waste"],
+        answer: "Dry Waste"
+    },
+
+    {
+        item: "Fruit Peels 🍌",
+        options: ["Wet Waste", "Dry Waste"],
+        answer: "Wet Waste"
+    },
+
+    {
+        item: "Cardboard Box 📦",
+        options: ["Wet Waste", "Dry Waste"],
+        answer: "Dry Waste"
+    }
+
+];
+
+let current = 0;
+let points = 0;
+let answered = false;
+
+
+// START GAME
+
+function startGame() {
+
+    current = 0;
+    points = 0;
+
+    document.getElementById("welcome").style.display = "none";
+    document.getElementById("result").style.display = "none";
+    document.getElementById("game").style.display = "block";
+
+    showQuestion();
+
+}
+
+
+// SHOW QUESTION
+
+function showQuestion() {
+
+    if (current >= questions.length) {
+        finishGame();
+        return;
+    }
+
+    answered = false;
+
+    let q = questions[current];
+
+    document.getElementById("question").innerText = q.item;
+
+    document.getElementById("number").innerText = current + 1;
+
+    document.getElementById("feedback").innerText = "";
+
+    let box = document.getElementById("options");
+
+    box.innerHTML = "";
+
+    q.options.forEach(option => {
+
+        let btn = document.createElement("button");
+
+        btn.innerText = option;
+        btn.className = "option";
+
+        btn.onclick = function() {
+            checkAnswer(option, btn);
+        };
+
+        box.appendChild(btn);
+
+    });
+
+}
+
+
+// CHECK ANSWER
+
+function checkAnswer(selected, clickedButton) {
+
+    if (answered) return;
+
+    answered = true;
+
+    let correct = questions[current].answer;
+
+    let buttons = document.querySelectorAll(".option");
+
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (selected === correct) {
+
+        points += 10;
+
+        document.getElementById("feedback").innerText =
+            "✅ Correct! You earned 10 points.";
+
+    } else {
+
+        document.getElementById("feedback").innerText =
+            "❌ Correct answer: " + correct;
+
+    }
+
+    setTimeout(function() {
+
+        current++;
+        showQuestion();
+
+    }, 1200);
+
+}
+
+
+// FINISH GAME
+
+function finishGame() {
+
+    document.getElementById("game").style.display = "none";
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("score").innerText = points;
+
+    let badge = "";
+    let icon = "";
+
+    if (points >= 40) {
+
+        badge = "Gold Cleanliness Champion!";
+        icon = "🥇";
+
+    } else if (points >= 20) {
+
+        badge = "Silver Cleanliness Champion!";
+        icon = "🥈";
+
+    } else {
+
+        badge = "Bronze Cleanliness Champion!";
+        icon = "🥉";
+
+    }
+
+    document.getElementById("badgeText").innerText = badge;
+
+    document.getElementById("badgeIcon").innerText = icon;
+
+    let oldPoints = Number(
+        localStorage.getItem("totalPoints") || 0
+    );
+
+    let total = oldPoints + points;
+
+    localStorage.setItem("totalPoints", total);
+
+    document.getElementById("bar").style.width =
+        Math.min(total, 100) + "%";
+
+    document.getElementById("progressText").innerText =
+        "Your total accumulated points: " + total;
+
+}
+
+
+// SHOW CERTIFICATE
+
+function showCertificate() {
+
+    document.getElementById("result").style.display = "none";
+
+    document.getElementById("certificate").style.display = "block";
+
+}
+
+
+// GENERATE CERTIFICATE
+
+function makeCertificate() {
+
+    let name = document.getElementById("username").value.trim();
+
+    if (name === "") {
+
+        alert("Please enter your name!");
+
+        return;
+
+    }
+
+    document.getElementById("certificateName").innerText =
+        name + " - Cleanliness Champion";
+
+}
+
+
+// TAKE PLEDGE
+
+function pledge() {
+
+    localStorage.setItem("pledgeTaken", "yes");
+
+    document.getElementById("pledgeMessage").innerText =
+        "💚 Thank you! You are helping build a cleaner India!";
+
+}
+
+</script>
+
+</body>
+</html>
